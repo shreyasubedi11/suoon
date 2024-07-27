@@ -1,0 +1,70 @@
+
+package HotelMangementSystem;
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+import net.proteanit.sql.*;
+
+public class Department extends JFrame implements ActionListener {
+    JTable table;
+    JButton back;
+    
+    Department(){
+    getContentPane().setBackground(Color.WHITE);
+    setLayout(null);
+    
+    
+     
+    
+        JLabel ll = new JLabel("Department");
+        ll.setFont(new Font("Times New Roman", Font.BOLD, 13));
+        ll.setForeground(new Color(139, 69, 19));
+        ll.setBounds(60,10,100,20);
+        add(ll);
+        
+        
+         JLabel l2 = new JLabel("Budget");
+         l2.setBounds(350,10,100,20);
+         l2.setFont(new Font("Times New Roman", Font.BOLD, 13));
+         l2.setForeground(new Color(139, 69, 19));
+         add(l2);
+         
+        
+        
+        table = new JTable();
+        table.setBounds(0,50,700,350);
+        add(table);
+        
+        try{
+            Conn c = new Conn();
+            ResultSet rs = c.s.executeQuery("Select * from department");
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+   
+    back = new JButton ("Back");
+    back.setBackground(new Color(139, 69, 19)); // Set the background color
+    back.setFont(new Font("Times New Roman", Font.BOLD, 13));
+    back.setForeground(Color.WHITE);
+    back.addActionListener(this);
+    back.setBounds(280,400,120,30);
+    add(back);
+    
+   setBounds(400,200,700,480);
+   setVisible(true);
+   
+   
+}   
+public void actionPerformed(ActionEvent ae){
+    setVisible(false);
+    new AddReception();
+}
+public static void main(String[]args){
+    new Department();
+}
+} 
